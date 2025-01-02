@@ -12,6 +12,7 @@ import { ReviewModule } from './review/review.module';
 import { LayoutModule } from './layout/layout.module';
 import { MongooseDatabaseModule } from './utils/connectDatabase.module';
 import { ConfigModule } from '@nestjs/config';
+import { FlashSellModule } from './flash_sell/flash_sell.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -27,6 +28,7 @@ import { ConfigModule } from '@nestjs/config';
     ReviewModule,
     LayoutModule,
     MongooseDatabaseModule,
+    FlashSellModule,
   ],
   controllers: [],
   providers: [],
