@@ -4,7 +4,7 @@ import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 export type SubCateDucument = HydratedDocument<SubCate>;
 @Schema({ timestamps: true, versionKey: false })
 export class SubCate {
-  @Prop({ type: MongooseSchema.ObjectId, ref: 'Category' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Category' })
   categoryId: string;
   @Prop({ type: String, required: true })
   name: string;
@@ -15,7 +15,7 @@ export class SubCate {
     },
   })
   image: { url: string; uri: string };
-  @Prop({ type: [{ type: MongooseSchema.ObjectId, ref: 'Accgame' }] })
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Accgame' }] })
   accgameId: string[];
   @Prop({ type: Boolean, default: true })
   status: boolean;

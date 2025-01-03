@@ -1,1 +1,5 @@
-export class CreateDetailHistoryDto {}
+export class CreateDetailHistoryDto {
+  nameGame: string;
+  name: string;
+  password: string;
+}

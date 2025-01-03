@@ -4,7 +4,7 @@ import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 export type UserDocument = HydratedDocument<InfoUser>;
 @Schema({ timestamps: true, versionKey: false })
 export class InfoUser {
-  @Prop({ type: MongooseSchema.ObjectId, ref: 'User' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
   userId: string;
   @Prop({ type: Number, required: true })
   amount: number;

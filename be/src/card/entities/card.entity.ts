@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import e from 'express';
-import { HydratedDocument, Schema as MongooseModule } from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 
 export type CardDucument = HydratedDocument<Card>;
 @Schema({ timestamps: true, versionKey: false })
 export class Card {
-  @Prop({ type: MongooseModule.ObjectId, ref: 'InfoUser' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'InfoUser' })
   infoUserId: string;
   @Prop({
     type: [
@@ -16,11 +16,11 @@ export class Card {
     ],
     required: true,
   })
-  card: Array<{
+  card: {
     pin: string;
     seri: string;
-  }>;
-  @Prop({ type: Boolean, required: true, default: true })
+  }[];
+  @Prop({ type: Boolean, default: true })
   status: boolean;
 }
 export const CardSchema = SchemaFactory.createForClass(Card);

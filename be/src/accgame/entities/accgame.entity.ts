@@ -14,9 +14,9 @@ export class Accgame {
   price: number;
   @Prop({ type: Number, required: true })
   quantity: number;
-  @Prop({ type: MongooseSchema.ObjectId, ref: 'SubCate' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'SubCate' })
   subCateId: string;
-  @Prop({ type: MongooseSchema.ObjectId, ref: 'LogAcc' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'LogAcc' })
   logAccId: string;
   @Prop({
     type: [
