@@ -5,14 +5,24 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { LocalStrategy } from './local.strategy';
+import {
+  InfoUser,
+  InfoUserSchema,
+} from 'src/info-user/entities/info-user.entity';
+import { InfoUserModule } from 'src/info-user/info-user.module';
+import { InfoUserService } from 'src/info-user/info-user.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      { name: InfoUser.name, schema: InfoUserSchema },
+    ]),
     PassportModule,
     ConfigModule,
+    InfoUserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -23,7 +33,7 @@ import { LocalStrategy } from './local.strategy';
     }),
   ],
   controllers: [UserController],
-  providers: [UserService, LocalStrategy],
+  providers: [UserService, LocalStrategy, InfoUserService],
   exports: [UserService],
 })
 export class UserModule {}

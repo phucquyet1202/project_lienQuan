@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { LogAccService } from './log-acc.service';
 import { CreateLogAccDto } from './dto/create-log-acc.dto';
 import { UpdateLogAccDto } from './dto/update-log-acc.dto';
@@ -19,16 +27,16 @@ export class LogAccController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.logAccService.findOne(+id);
+    return this.logAccService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLogAccDto: UpdateLogAccDto) {
-    return this.logAccService.update(+id, updateLogAccDto);
+    return this.logAccService.update(id, updateLogAccDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.logAccService.remove(+id);
+    return this.logAccService.remove(id);
   }
 }

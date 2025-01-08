@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 
-export type UserDocument = HydratedDocument<History>;
+export type HistoryDocument = HydratedDocument<History>;
 @Schema({ timestamps: true, versionKey: false })
 export class History {
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Card' }] })

@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -11,6 +12,11 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { customException, customResponse } from 'src/helper/response.helper';
 import { InjectModel } from '@nestjs/mongoose';
+import {
+  InfoUser,
+  InfoUserDocument,
+} from 'src/info-user/entities/info-user.entity';
+import { InfoUserService } from 'src/info-user/info-user.service';
 
 @Injectable()
 export class UserService {
@@ -18,6 +24,7 @@ export class UserService {
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
     private jwtService: JwtService,
+    private infoUserService: InfoUserService,
   ) {}
   async signUp(createUserDto: CreateUserDto) {
     try {
@@ -33,6 +40,9 @@ export class UserService {
       if (!data) {
         return customException(404, 'Đăng ký thất bại');
       }
+      await this.infoUserService.create({
+        userId: data._id.toString(),
+      });
       return customResponse(200, 'Đăng ký thành công', data);
     } catch (error) {
       return customException(500, 'Lỗi server', error.message);
@@ -116,4 +126,26 @@ export class UserService {
       access_token,
     };
   }
+  // async GetUserByToken(access_token: string) {
+  //   try {
+  //     // Xác minh và giải mã token
+  //     const user = await this.jwtService.verify(access_token);
+  //     const data = await this.userModel.findById(user.sub);
+  //     if (!data) {
+  //       return customException(404, 'Không tìm thấy người dùng');
+  //     }
+  //     data.password = undefined;
+  //     data.role = undefined;
+  //     return customResponse(200, 'Lấy thông tin người dùng thành công', data);
+  //   } catch (error) {
+  //     // Kiểm tra loại lỗi và xử lý tương ứng
+  //     if (error.name === 'TokenExpiredError') {
+  //       return customException(401, 'Token hết hạn');
+  //     } else if (error.name === 'JsonWebTokenError') {
+  //       return customException(401, 'Token không hợp lệ');
+  //     } else {
+  //       return customException(500, 'Lỗi server', error.message);
+  //     }
+  //   }
+  // }
 }

@@ -10,17 +10,20 @@ export class Card {
   @Prop({
     type: [
       {
+        type: { type: String, required: true },
+        amount: { type: String, required: true },
         pin: { type: String, required: true },
         seri: { type: String, required: true },
+        status: { type: Boolean, default: true },
       },
     ],
     required: true,
   })
   card: {
     pin: string;
+    amount: string;
     seri: string;
+    status: boolean;
   }[];
-  @Prop({ type: Boolean, default: true })
-  status: boolean;
 }
 export const CardSchema = SchemaFactory.createForClass(Card);

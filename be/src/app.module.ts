@@ -13,6 +13,7 @@ import { LayoutModule } from './layout/layout.module';
 import { MongooseDatabaseModule } from './utils/connectDatabase.module';
 import { ConfigModule } from '@nestjs/config';
 import { FlashSellModule } from './flash_sell/flash_sell.module';
+import { CardExchangeModule } from './card_exchange/card_exchange.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -29,6 +30,7 @@ import { FlashSellModule } from './flash_sell/flash_sell.module';
     LayoutModule,
     MongooseDatabaseModule,
     FlashSellModule,
+    CardExchangeModule,
   ],
   controllers: [],
   providers: [],

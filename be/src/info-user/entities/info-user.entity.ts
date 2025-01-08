@@ -1,23 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 
-export type UserDocument = HydratedDocument<InfoUser>;
+export type InfoUserDocument = HydratedDocument<InfoUser>;
 @Schema({ timestamps: true, versionKey: false })
 export class InfoUser {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
   userId: string;
-  @Prop({ type: Number, required: true })
+  @Prop({ type: Number, default: 0 })
   amount: number;
-  @Prop({
-    type: {
-      cardId: { type: String, required: true },
-      cardSecret: { type: String, required: true },
-    },
-    required: true,
-  })
-  cardTile: {
-    cardId: string;
-    cardSecret: string;
-  };
 }
 export const InfoUserSchema = SchemaFactory.createForClass(InfoUser);

@@ -1,14 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { CardService } from './card.service';
 import { CreateCardDto } from './dto/create-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
+import { IsLoginGuard } from 'src/guards/login.guard';
+import { InfoUserService } from 'src/info-user/info-user.service';
 
+@UseGuards(IsLoginGuard)
 @Controller('card')
 export class CardController {
-  constructor(private readonly cardService: CardService) {}
-
+  constructor(
+    private readonly cardService: CardService,
+    private infoUserService: InfoUserService,
+  ) {}
   @Post()
-  create(@Body() createCardDto: CreateCardDto) {
+  async create(@Req() req, @Body() createCardDto: CreateCardDto) {
+    const infoUserId = await this.infoUserService.findByIdUser(
+      req.user.data._id,
+    );
+    createCardDto.infoUserId = infoUserId.data._id;
     return this.cardService.create(createCardDto);
   }
 
