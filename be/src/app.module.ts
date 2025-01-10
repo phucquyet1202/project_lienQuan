@@ -14,6 +14,7 @@ import { MongooseDatabaseModule } from './utils/connectDatabase.module';
 import { ConfigModule } from '@nestjs/config';
 import { FlashSellModule } from './flash_sell/flash_sell.module';
 import { CardExchangeModule } from './card_exchange/card_exchange.module';
+import { CloudinaryModule } from './utils/cloundinary/cloundinary.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -31,6 +32,7 @@ import { CardExchangeModule } from './card_exchange/card_exchange.module';
     MongooseDatabaseModule,
     FlashSellModule,
     CardExchangeModule,
+    CloudinaryModule,
   ],
   controllers: [],
   providers: [],

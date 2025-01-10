@@ -12,9 +12,7 @@ export class AccgameService {
     return `This action returns all accgame`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} accgame`;
-  }
+  async findOne(id: number) {}
 
   update(id: number, updateAccgameDto: UpdateAccgameDto) {
     return `This action updates a #${id} accgame`;

@@ -9,5 +9,7 @@ export class DetailHistory {
   name: string;
   @Prop({ type: String, required: true })
   password: string;
+  @Prop({ type: Date, default: Date.now() })
+  time: string;
 }
 export const DetailHistorySchema = SchemaFactory.createForClass(DetailHistory);
