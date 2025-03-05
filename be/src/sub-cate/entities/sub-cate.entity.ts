@@ -8,6 +8,8 @@ export class SubCate {
   categoryId: string;
   @Prop({ type: String, required: true })
   name: string;
+  @Prop({ type: Number, default: 0 })
+  quantity: number;
   @Prop({
     type: {
       url: { type: String, required: true },

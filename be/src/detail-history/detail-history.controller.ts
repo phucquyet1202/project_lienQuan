@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+} from '@nestjs/common';
 import { DetailHistoryService } from './detail-history.service';
 import { CreateDetailHistoryDto } from './dto/create-detail-history.dto';
 import { UpdateDetailHistoryDto } from './dto/update-detail-history.dto';
@@ -19,16 +28,20 @@ export class DetailHistoryController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.detailHistoryService.findOne(+id);
+    return this.detailHistoryService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDetailHistoryDto: UpdateDetailHistoryDto) {
-    return this.detailHistoryService.update(+id, updateDetailHistoryDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateDetailHistoryDto: UpdateDetailHistoryDto,
+  ) {
+    return this.detailHistoryService.update(id, updateDetailHistoryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.detailHistoryService.remove(+id);
+  remove(@Param('id') id: string, @Req() req) {
+    const idUser: string = req.data.user._id.toString();
+    return this.detailHistoryService.remove(id, idUser);
   }
 }

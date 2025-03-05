@@ -15,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
 import { FlashSellModule } from './flash_sell/flash_sell.module';
 import { CardExchangeModule } from './card_exchange/card_exchange.module';
 import { CloudinaryModule } from './utils/cloundinary/cloundinary.module';
+import { BannerModule } from './banner/banner.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -33,6 +34,7 @@ import { CloudinaryModule } from './utils/cloundinary/cloundinary.module';
     FlashSellModule,
     CardExchangeModule,
     CloudinaryModule,
+    BannerModule,
   ],
   controllers: [],
   providers: [],

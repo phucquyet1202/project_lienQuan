@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+    .w-screen {
+        width: auto; /* Hoặc giá trị bạn mong muốn */
+
+    }
+    .h-screen {
+        height: auto; /* Hoặc giá trị bạn mong muốn */
+    }
+    .min-w-20 {
+        min-width: auto
+    }
+}

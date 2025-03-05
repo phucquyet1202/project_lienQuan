@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { HistoryService } from './history.service';
 import { CreateHistoryDto } from './dto/create-history.dto';
@@ -16,7 +17,8 @@ export class HistoryController {
   constructor(private readonly historyService: HistoryService) {}
 
   @Post()
-  create(@Body() createHistoryDto: CreateHistoryDto) {
+  create(@Req() req, @Body() createHistoryDto: CreateHistoryDto) {
+    createHistoryDto.infoUserId = req.user.data._id;
     return this.historyService.create(createHistoryDto);
   }
 

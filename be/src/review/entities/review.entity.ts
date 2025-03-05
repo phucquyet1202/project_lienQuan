@@ -10,5 +10,7 @@ export class Review {
   name: string;
   @Prop({ type: Number, required: true })
   rating: number;
+  @Prop({ type: Date, default: Date.now })
+  time: Date;
 }
 export const ReviewSchema = SchemaFactory.createForClass(Review);

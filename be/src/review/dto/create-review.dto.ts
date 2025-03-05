@@ -11,4 +11,6 @@ export class CreateReviewDto {
   @Transform(({ value }) => value.trim())
   @IsNotEmpty({ message: 'Số điểm không được để trống' })
   rating: number;
+  @Transform(({ value }) => value.trim())
+  time?: Date;
 }

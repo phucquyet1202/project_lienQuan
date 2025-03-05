@@ -1,0 +1,7 @@
+/* CSS cho màn hình nhỏ hơn sm */
+@media (max-width: 640px) {
+    .whitespace-normal-sm {
+      white-space: normal !important;
+    }
+  }
+  

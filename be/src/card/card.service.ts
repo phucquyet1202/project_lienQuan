@@ -9,7 +9,6 @@ import { HistoryService } from 'src/history/history.service';
 import { CardExchangeService } from 'src/card_exchange/card_exchange.service';
 import { customException, customResponse } from 'src/helper/response.helper';
 import { InfoUserService } from 'src/info-user/info-user.service';
-import * as md5 from 'md5';
 import { checkCard } from './validators/check-card';
 
 @Injectable()
@@ -52,12 +51,11 @@ export class CardService {
         if (!history) {
           await this.historyService.create({
             infoUserId: createCardDto.infoUserId,
-            cardId: [data._id.toString()],
-            detailHistoryId: [],
+            cardId: data._id.toString(),
           });
         }
         await this.historyService.update(history.data._id, {
-          cardId: [...history.data.cardId, data._id.toString()],
+          cardId: data._id.toString(),
         });
         if (!data) {
           return customException(404, 'Nạp thẻ thất bại');

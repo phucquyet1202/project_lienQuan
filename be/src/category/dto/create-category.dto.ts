@@ -5,6 +5,6 @@ export class CreateCategoryDto {
   @Transform(({ value }) => value.trim())
   @IsNotEmpty({ message: 'Tên danh mục không được để trống' })
   name: string;
-  status: boolean;
-  subCateId: string[];
+  status?: boolean;
+  subCateId?: string;
 }

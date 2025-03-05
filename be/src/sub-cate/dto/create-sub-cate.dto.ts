@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, Min } from 'class-validator';
 
 export class CreateSubCateDto {
   categoryId: string;
@@ -8,6 +8,7 @@ export class CreateSubCateDto {
   name: string;
   @IsNotEmpty({ message: 'Ảnh danh mục con không được để trống' })
   image: { url: string; uri: string };
-  accgameId: string[];
-  status: boolean;
+  accgameId?: string[];
+  quantity?: number;
+  status?: boolean;
 }

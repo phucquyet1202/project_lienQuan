@@ -18,7 +18,7 @@ export class CategoryService {
       if (!data) {
         return customException(404, 'Tạo danh mục thất bại');
       }
-      return customResponse(200, 'Tạo danh mục thành công', data);
+      return customResponse(200, 'Tạo danh mục thành công');
     } catch (error) {
       return customException(500, 'Lỗi server', error.message);
     }
@@ -26,7 +26,7 @@ export class CategoryService {
 
   async findAll() {
     try {
-      const data = await this.categoryModel.find();
+      const data = await this.categoryModel.find().populate('subCateId');
       if (!data) {
         return customException(404, 'Không tìm thấy dữ liệu');
       }
@@ -38,7 +38,7 @@ export class CategoryService {
 
   async findOne(id: string) {
     try {
-      const data = await this.categoryModel.findById(id);
+      const data = await this.categoryModel.findById(id).populate('subCateId');
       if (!data) {
         return customException(404, 'Không tìm thấy danh mục');
       }
@@ -50,9 +50,28 @@ export class CategoryService {
 
   async update(id: string, updateCategoryDto: UpdateCategoryDto) {
     try {
+      const updateOperations: any = {};
+
+      if (updateCategoryDto.name) {
+        updateOperations.name = updateCategoryDto.name;
+      }
+      if (updateCategoryDto.addSubCateId) {
+        updateOperations.$push = {
+          accgameId: updateCategoryDto.addSubCateId,
+        };
+      }
+      if (updateCategoryDto.removeSubCateId) {
+        updateOperations.$pull = {
+          accgameId: { $in: updateCategoryDto.removeSubCateId },
+        };
+      }
+
+      if (updateCategoryDto.status !== undefined) {
+        updateOperations.status = updateCategoryDto.status;
+      }
       const data = await this.categoryModel.findByIdAndUpdate(
         id,
-        updateCategoryDto,
+        updateOperations,
         { new: true },
       );
       if (!data) {
@@ -64,9 +83,9 @@ export class CategoryService {
     }
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     try {
-      this.categoryModel.findByIdAndDelete(id);
+      await this.categoryModel.findByIdAndDelete(id);
       return customResponse(200, 'Xóa danh mục thành công');
     } catch (error) {
       return customException(500, 'Lỗi server', error.message);

@@ -64,9 +64,9 @@ export class ReviewService {
     }
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     try {
-      const data = this.reviewModel.findByIdAndDelete(id);
+      const data = await this.reviewModel.findByIdAndDelete(id);
       if (!data) {
         return customException(404, 'Xóa review thất bại');
       }

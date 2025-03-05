@@ -7,19 +7,13 @@ export class FlashSell {
   @Prop({ type: String, required: true })
   name: string;
   @Prop({
-    type: [
-      {
-        accgameId: { type: MongooseSchema.Types.ObjectId, ref: 'Accgame' },
-        originalPrice: { type: Number, required: true },
-      },
-    ],
-  })
-  accgame: [
-    {
-      accgameId: string;
-      originalPrice: number;
+    type: {
+      accgameId: { type: MongooseSchema.Types.ObjectId, ref: 'Accgame' },
     },
-  ];
+  })
+  accgameId: string;
+  @Prop({ type: Number, required: true })
+  originalPrice: number;
   @Prop({ type: Boolean, required: true })
   status: boolean;
 }

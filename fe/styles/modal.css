@@ -1,0 +1,26 @@
+@media (min-width: 418px) and (max-width: 639px) {
+    .modal-box {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 310px) {
+    .modal-box {
+        margin-top: -300px;
+    }
+}
+@media (max-width: 230px) {
+    .modal-box {
+        margin-top: -500px;
+    }
+}
+@media (max-width: 182px) {
+    .modal-box {
+        margin-top: -400px;
+    }
+}
+@media (max-width: 150px) {
+    .modal-box {
+        margin-top: -1600px;
+    }
+}

@@ -14,11 +14,17 @@ export class HistoryService {
   ) {}
   async create(createHistoryDto: CreateHistoryDto) {
     try {
-      const data = await this.historyModel.create(createHistoryDto);
-      if (!data) {
-        return customException(404, 'Tạo lịch sử thất bại');
+      const history = await this.historyModel.findOne({
+        infoUserId: createHistoryDto.infoUserId,
+      });
+      if (!history) {
+        const data = await this.historyModel.create(createHistoryDto);
+        if (!data) {
+          return customException(404, 'Tạo lịch sử thất bại');
+        }
+        return customResponse(200, 'Tạo lịch sử thành công', data);
       }
-      return customResponse(200, 'Tạo lịch sử thành công', data);
+      return await this.update(createHistoryDto.infoUserId, createHistoryDto);
     } catch (error) {
       return customException(500, 'Lỗi server', error.message);
     }
@@ -26,7 +32,9 @@ export class HistoryService {
 
   async findAll() {
     try {
-      const data = await this.historyModel.find();
+      const data = await this.historyModel
+        .find()
+        .populate('cardId infoUserId detailHistoryId');
       if (!data) {
         return customException(404, 'Không tìm thấy dữ liệu');
       }
@@ -38,7 +46,9 @@ export class HistoryService {
 
   async findOne(id: string) {
     try {
-      const data = await this.historyModel.findById(id);
+      const data = await this.historyModel
+        .findById(id)
+        .populate('cardId infoUserId detailHistoryId');
       if (!data) {
         return customException(404, 'Không tìm thấy dữ liệu');
       }
@@ -58,10 +68,41 @@ export class HistoryService {
       return customException(500, 'Lỗi server', error.message);
     }
   }
-  async update(id: string, updateHistoryDto: UpdateHistoryDto) {
+  async update(
+    id: string,
+    updateHistoryDto: CreateHistoryDto | UpdateHistoryDto,
+  ) {
     try {
+      const updateOperations: any = {};
+
+      // Nếu có cardId, sử dụng $push để thêm các phần tử mới
+      if (updateHistoryDto.cardId) {
+        updateOperations.$push = { cardId: updateHistoryDto.cardId };
+      }
+
+      // Nếu có detailHistoryId, thêm vào mảng tương tự
+      if (updateHistoryDto.detailHistoryId) {
+        updateOperations.$push = {
+          detailHistoryId: updateHistoryDto.detailHistoryId,
+        };
+      }
+      if (updateHistoryDto.deleteDetailHistory) {
+        updateOperations.$pull = {
+          detailHistoryId: updateHistoryDto.deleteDetailHistory,
+        };
+      }
+
+      // Cập nhật các trường khác nếu có
+      if ('infoUserId' in updateHistoryDto && updateHistoryDto.infoUserId) {
+        updateOperations.infoUserId = updateHistoryDto.infoUserId;
+      }
+
       const data = await this.historyModel
-        .findByIdAndUpdate(id, updateHistoryDto, { new: true })
+        .findOneAndUpdate(
+          { infoUserId: updateHistoryDto.infoUserId },
+          updateOperations,
+          { new: true },
+        )
         .populate('cardId infoUserId detailHistoryId');
 
       if (!data) {

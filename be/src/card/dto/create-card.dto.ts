@@ -16,8 +16,10 @@ export class CreateCardDto {
     message: 'Seri không hợp lệ',
   })
   seri: string;
+  @Transform(({ value }) => value.trim())
   @IsNotEmpty({ message: 'Mệnh giá không được để trống' })
   amount: string;
+  @Transform(({ value }) => value.trim())
   @IsNotEmpty({ message: 'Loại thẻ không được để trống' })
   type: string;
 }

@@ -11,5 +11,7 @@ export class Layout {
     },
   })
   image: { url: string; uri: string };
+  @Prop({ type: Boolean, default: true })
+  status: boolean;
 }
 export const LayoutSchema = SchemaFactory.createForClass(Layout);

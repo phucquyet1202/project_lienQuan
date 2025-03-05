@@ -5,8 +5,15 @@ import { button as buttonStyles } from "@nextui-org/theme";
 
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { GithubIcon } from "@/components/client/icons";
+import Banner from "@/components/client/banner/layOut";
+import ListSubCate from "@/components/client/cusstomCard/listSubCate";
 
 export default function Home() {
-  return <>123</>;
+  return (
+    <>
+      <Banner />
+      <ListSubCate />
+    </>
+  );
 }

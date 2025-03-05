@@ -1,5 +1,6 @@
 export class CreateHistoryDto {
-  cardId: string[];
+  cardId: string;
   infoUserId: string;
-  detailHistoryId: string[];
+  detailHistoryId?: string;
+  deleteDetailHistory?: string;
 }

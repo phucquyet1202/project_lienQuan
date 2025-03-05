@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-export type UserDocument = HydratedDocument<DetailHistory>;
+export type DetailHistoryDocument = HydratedDocument<DetailHistory>;
 @Schema({ timestamps: true, versionKey: false })
 export class DetailHistory {
   @Prop({ type: String, required: true })
